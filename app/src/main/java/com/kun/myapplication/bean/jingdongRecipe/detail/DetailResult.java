@@ -1,12 +1,14 @@
-package com.kun.myapplication.bean.jingdongRecipe;
+package com.kun.myapplication.bean.jingdongRecipe.detail;
 
-public class Result
+import com.kun.myapplication.bean.jingdongRecipe.Recipe;
+
+public class DetailResult
 {
     private int status;
 
     private String msg;
 
-    private RecipeResult recipeResult;
+    private Recipe result;
 
     public void setStatus(int status){
         this.status = status;
@@ -20,10 +22,10 @@ public class Result
     public String getMsg(){
         return this.msg;
     }
-    public void setRecipeResult(RecipeResult recipeResult){
-        this.recipeResult = recipeResult;
+    public void setRecipeResult(Recipe result){
+        this.result = result;
     }
-    public RecipeResult getRecipeResult(){
-        return this.recipeResult;
+    public Recipe getRecipeResult(){
+        return this.result;
     }
 }

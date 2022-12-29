@@ -26,4 +26,13 @@ public class Material
     public String getAmount(){
         return this.amount;
     }
+
+    @Override
+    public String toString() {
+        return "Material{" +
+                "mname='" + mname + '\'' +
+                ", type=" + type +
+                ", amount='" + amount + '\'' +
+                '}';
+    }
 }

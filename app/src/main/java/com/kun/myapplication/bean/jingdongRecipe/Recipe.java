@@ -92,4 +92,21 @@ public class Recipe
     public List<Process> getProcess(){
         return this.process;
     }
+
+    @Override
+    public String toString() {
+        return "Recipe{" +
+                "id=" + id +
+                ", classid=" + classid +
+                ", name='" + name + '\'' +
+                ", peoplenum='" + peoplenum + '\'' +
+                ", preparetime='" + preparetime + '\'' +
+                ", cookingtime='" + cookingtime + '\'' +
+                ", content='" + content + '\'' +
+                ", pic='" + pic + '\'' +
+                ", tag='" + tag + '\'' +
+                ", material=" + material +
+                ", process=" + process +
+                '}';
+    }
 }

@@ -1,8 +1,10 @@
-package com.kun.myapplication.bean.jingdongRecipe;
+package com.kun.myapplication.bean.jingdongRecipe.searchAndByclass;
+
+import com.kun.myapplication.bean.jingdongRecipe.Recipe;
 
 import java.util.List;
 
-public class RecipeResult
+public class SearchAndByClassRecipeResult
 {
     private int total;
 

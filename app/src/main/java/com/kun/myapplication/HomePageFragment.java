@@ -1,19 +1,14 @@
 package com.kun.myapplication;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.kun.myapplication.utils.net.RetrofitCallback;
-import com.kun.myapplication.utils.net.RetrofitUtil;
-
-import java.util.HashMap;
-import java.util.Map;
+import android.widget.EditText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,6 +25,9 @@ public class HomePageFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+
+    private View rootView;
+    private EditText searchBox;
 
     public HomePageFragment() {
         // Required empty public constructor
@@ -60,28 +58,20 @@ public class HomePageFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-        Map<String,String> map = new HashMap<>();
-        map.put("keyword","白菜");
-        map.put("num","10");
-        map.put("start","0");
-        map.put("appkey","ac3df7dc8589d4a2fac3ece1990f7c14");
-        RetrofitUtil.getFromJingDongRecipe("search", map, new RetrofitCallback() {
-            @Override
-            public void onSuccess(String resultJsonString) {
-                Log.d("lance", "onSuccess: " + resultJsonString);
-            }
-
-            @Override
-            public void onError(Throwable t) {
-
-            }
-        });
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home_page, container, false);
+        rootView = inflater.inflate(R.layout.fragment_home_page, container, false);
+        searchBox = rootView.findViewById(R.id.search_box);
+        searchBox.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+                startActivity(new Intent(getActivity(),SearchActivity.class));
+            }
+        });
+        return rootView;
     }
 }

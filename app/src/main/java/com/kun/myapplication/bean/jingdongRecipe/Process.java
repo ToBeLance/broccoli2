@@ -19,4 +19,12 @@ public class Process
     public String getPic(){
         return this.pic;
     }
+
+    @Override
+    public String toString() {
+        return "Process{" +
+                "pcontent='" + pcontent + '\'' +
+                ", pic='" + pic + '\'' +
+                '}';
+    }
 }
