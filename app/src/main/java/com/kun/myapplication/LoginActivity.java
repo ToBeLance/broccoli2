@@ -23,6 +23,8 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private EditText name,password;
     private Button login,register;
+    public static String USER_ID = "4";
+    public static String USER_NAME = "king";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +54,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this,"password error",Toast.LENGTH_SHORT).show();
                                 return;
                             }
-                            Toast.makeText(LoginActivity.this,"login success" + user ,Toast.LENGTH_SHORT).show();
+                            USER_ID = String.valueOf(user.getId());
+                            USER_NAME = user.getName();
+                            Toast.makeText(LoginActivity.this,"login success " + user.getName() ,Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this,MainActivity.class));
                             return;
                         }
