@@ -35,6 +35,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SearchActivity extends AppCompatActivity {
+    private String subClassId;
     private EditText searchBox;
     private ImageView back;
     private RecyclerView rvRecommend,rvSearch;
@@ -45,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
+        subClassId = getIntent().getStringExtra("subClassId");
 
         searchBox = findViewById(R.id.search_box);
         back = findViewById(R.id.back);
@@ -56,6 +58,10 @@ public class SearchActivity extends AppCompatActivity {
         searchBox.requestFocus();
         //显示软键盘
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+
+        if (null != subClassId) {
+            startRecommendSearch(subClassId);
+        }
 
         back.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -21,6 +21,7 @@ import com.kun.myapplication.bean.jingdongRecipe.Material;
 import com.kun.myapplication.bean.jingdongRecipe.Process;
 import com.kun.myapplication.bean.jingdongRecipe.Recipe;
 import com.kun.myapplication.bean.jingdongRecipe.detail.DetailRoot;
+import com.kun.myapplication.bean.myServer.Collect;
 import com.kun.myapplication.bean.myServer.Score;
 import com.kun.myapplication.utils.net.RetrofitCallback;
 import com.kun.myapplication.utils.net.RetrofitUtil;
@@ -34,11 +35,15 @@ public class RecipeActivity extends AppCompatActivity {
     private Map<String,String> map = new HashMap<>();
     private String userId = LoginActivity.USER_ID;
     private Boolean isScore = false;
+    private Boolean isCollect = false;
     private String recipeId;
     private Recipe recipe;
     private List<Material> materialList;
     private List<Process> processList;
     private ImageView back;
+    private LinearLayout recipeCollect;
+    private ImageView recipeCollectStar;
+    private TextView recipeCollectText;
     private TextView recipeName,recipePrepareTime,recipeCookingTime,recipeScore,recipeScorePeopleNum,recipePeopleNum;
     private ImageView firstStar,secondStar,thirdStar,fourthStar,fifthStar;
     private LinearLayout recipeNote;
@@ -77,6 +82,9 @@ public class RecipeActivity extends AppCompatActivity {
         thirdStar = findViewById(R.id.third_star);
         fourthStar = findViewById(R.id.fourth_star);
         fifthStar = findViewById(R.id.fifth_star);
+        recipeCollect = findViewById(R.id.recipe_collect);
+        recipeCollectStar = findViewById(R.id.recipe_collect_star);
+        recipeCollectText = findViewById(R.id.recipe_collect_text);
         recipeNote = findViewById(R.id.recipe_note);
         recipeImg = findViewById(R.id.recipe_img);
         recipeTag = findViewById(R.id.recipe_tag);
@@ -127,6 +135,19 @@ public class RecipeActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        recipeCollect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (isCollect) {
+                    cancelCollect();
+                    isCollect = false;
+                } else {
+                    collect();
+                    isCollect = true;
+                }
+            }
+        });
     }
 
     private void refreshScore() {
@@ -138,12 +159,18 @@ public class RecipeActivity extends AppCompatActivity {
                 //json --> list :new TypeToken<ArrayList<Score>>(){}.getType()
                 scoreList = new Gson().fromJson(resultJsonString, new TypeToken<ArrayList<Score>>(){}.getType());
                 //Log.d("lance", "onSuccess: " + resultJsonString);
-                int sum = 0;
-                for (int i = 0; i < scoreList.size(); i++) {
-                    sum += scoreList.get(i).getScore();
+                if (scoreList.size() > 0) {
+                    int sum = 0;
+                    for (int i = 0; i < scoreList.size(); i++) {
+                        sum += scoreList.get(i).getScore();
+                    }
+                    recipeScore.setText("" + (sum / scoreList.size()) + "分");
+                    recipeScorePeopleNum.setText("" + scoreList.size() + "人");
+                } else {
+                    recipeScore.setText("" + "无评分");
+                    recipeScorePeopleNum.setText("" + "0人");
                 }
-                recipeScore.setText("" + (sum / scoreList.size()) + "分");
-                recipeScorePeopleNum.setText("" + scoreList.size() + "人");
+
             }
 
             @Override
@@ -292,6 +319,45 @@ public class RecipeActivity extends AppCompatActivity {
         map.clear();
     }
 
+    private void collect(){
+        recipeCollectStar.setImageResource(R.drawable.recipe_activity_collect_light_star);
+        recipeCollectText.setText("" + "取消收藏");
+        map.put("userId",userId);
+        map.put("recipeId",recipeId);
+        RetrofitUtil.getFromMyServer("/Collect/insertCollect", map, new RetrofitCallback() {
+            @Override
+            public void onSuccess(String resultJsonString) {
+                Toast.makeText(RecipeActivity.this,"已经收藏该菜谱",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+        });
+        map.clear();
+    }
+
+    private void cancelCollect(){
+        recipeCollectStar.setImageResource(R.drawable.recipe_activity_collect_dark_star);
+        recipeCollectText.setText("" + "收藏");
+        map.put("userId",userId);
+        map.put("recipeId",recipeId);
+        RetrofitUtil.getFromMyServer("/Collect/deleteCollectByUserIdAndRecipeId", map, new RetrofitCallback() {
+            @Override
+            public void onSuccess(String resultJsonString) {
+                Toast.makeText(RecipeActivity.this,"已经取消收藏该菜谱",Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+        });
+        map.clear();
+
+    }
+
     private void initRecipe() {
         map.put("id",recipeId);
         map.put("appkey","ac3df7dc8589d4a2fac3ece1990f7c14");
@@ -378,5 +444,27 @@ public class RecipeActivity extends AppCompatActivity {
 
             }
         });
+        map.clear();
+
+        map.put("userId",userId);
+        map.put("recipeId",recipeId);
+        RetrofitUtil.getFromMyServer("/Collect/getCollectByUserIdAndRecipeId", map, new RetrofitCallback() {
+            @Override
+            public void onSuccess(String resultJsonString) {
+                List<Collect> collectList = new ArrayList<>();
+                collectList = new Gson().fromJson(resultJsonString,new TypeToken<ArrayList<Collect>>(){}.getType());
+                if (collectList.size() > 0) {
+                    isCollect = true;
+                    collect();
+                    Log.d("lance", "onSuccess: " + collectList.get(0));
+                }
+            }
+
+            @Override
+            public void onError(Throwable t) {
+
+            }
+        });
+        map.clear();
     }
 }

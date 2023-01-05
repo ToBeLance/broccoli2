@@ -45,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }).attach();
 
-
         //xml 里设置无效，这里取消viewpager2边缘效果
         viewPager2.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
 

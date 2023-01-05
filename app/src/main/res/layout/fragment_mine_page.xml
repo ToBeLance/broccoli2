@@ -3,12 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MinePageFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_margin="20dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="3" />
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="25sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="userName"/>
+                <TextView
+                    android:layout_marginTop="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ip属地： 广东"/>
+            </LinearLayout>
+
+            <ImageView
+                android:layout_alignParentRight="true"
+                android:src="@drawable/minepage_fragment_default_head_pic"
+                android:layout_width="60dp"
+                android:layout_height="60dp"/>
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="喜爱配置"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="40dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:overScrollMode="never"
+            android:id="@+id/favorite_configuration"
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"/>
+    </LinearLayout>
+
+
+
 
 </FrameLayout>

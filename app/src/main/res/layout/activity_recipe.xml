@@ -276,6 +276,7 @@
                     android:layout_height="25dp"
                     android:src="@drawable/recipe_activity_recipe_notes"/>
                 <TextView
+                    android:layout_marginStart="5dp"
                     android:textColor="@color/black"
                     android:gravity="center"
                     android:layout_width="wrap_content"
@@ -285,16 +286,21 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/recipe_collect"
                 android:layout_marginStart="20dp"
                 android:background="@drawable/button_grey_backgroud"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
+
                 <ImageView
-                    android:layout_gravity="center"
+                    android:id="@+id/recipe_collect_star"
                     android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/recipe_activity_collect_icon"/>
+                    android:layout_height="22dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/recipe_activity_collect_dark_star" />
                 <TextView
+                    android:layout_marginStart="5dp"
+                    android:id="@+id/recipe_collect_text"
                     android:textColor="@color/black"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

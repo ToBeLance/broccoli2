@@ -23,7 +23,7 @@ import java.util.Map;
 public class LoginActivity extends AppCompatActivity {
     private EditText name,password;
     private Button login,register;
-    public static String USER_ID = "4";
+    public static String USER_ID = "3";
     public static String USER_NAME = "king";
 
     @Override

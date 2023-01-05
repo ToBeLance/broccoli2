@@ -35,6 +35,7 @@ public class NoteActivity extends AppCompatActivity {
     private List<Comment> commentList = new ArrayList<>();
     private Map<String,String> map = new HashMap<>();
     private ImageView back;
+    private ImageView noComment;
     private RecyclerView comment;
     private ImageView closeKeyboard;
     private EditText sendNote;
@@ -49,6 +50,7 @@ public class NoteActivity extends AppCompatActivity {
         recipeId = getIntent().getStringExtra("recipeId");
 
         back = findViewById(R.id.back);
+        noComment = findViewById(R.id.no_comment);
         comment = findViewById(R.id.comment);
         closeKeyboard = findViewById(R.id.close_keyboard);
         sendNote = findViewById(R.id.send_note);
@@ -116,9 +118,14 @@ public class NoteActivity extends AppCompatActivity {
             @Override
             public void onSuccess(String resultJsonString) {
                 commentList = new Gson().fromJson(resultJsonString,new TypeToken<ArrayList<Comment>>(){}.getType());
+                if (commentList.size() == 0) {
+                    noComment.setVisibility(View.VISIBLE);
+                } else {
+                    noComment.setVisibility(View.GONE);
+                }
                 comment.setLayoutManager(new LinearLayoutManager(NoteActivity.this));
                 comment.setAdapter(new MyCommentRVAdapter());
-                Log.d("lance", "onSuccess: " + commentList);
+                //Log.d("lance", "onSuccess: " + commentList);
             }
 
             @Override
