@@ -29,12 +29,14 @@
             />
     </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
+        android:overScrollMode="never"
         android:layout_margin="10dp"
         android:orientation="vertical"
         android:id="@+id/rv_recommend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
+        android:overScrollMode="never"
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

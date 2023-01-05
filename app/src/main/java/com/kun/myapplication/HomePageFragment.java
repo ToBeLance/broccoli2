@@ -153,7 +153,8 @@ public class HomePageFragment extends Fragment {
                     if (recommendList.get(randomIndex).getClassId() == favoriteClassId[i]) {
                         recommendTip.setText("" + "为您推荐的" + favoriteClass[i] + "系列菜谱");
                         int randomSubClassId = random.nextInt(favoriteClassId[i + 1] - recommendList.get(randomIndex).getClassId() - 1) + recommendList.get(randomIndex).getClassId() + 1;
-                        Log.d("lance", "onSuccess: " + randomSubClassId);
+                        //Log.d("lance", "onSuccess: " + randomSubClassId);
+                        map.clear();
                         map.put("classid", String.valueOf(randomSubClassId));
                         map.put("start","0");
                         map.put("num","10");
@@ -161,7 +162,7 @@ public class HomePageFragment extends Fragment {
                         RetrofitUtil.getFromJingDongRecipe("byclass", map, new RetrofitCallback() {
                             @Override
                             public void onSuccess(String resultJsonString) {
-                                Log.d("lance", "onSuccess: " + resultJsonString);
+                                //Log.d("lance", "onSuccess: " + resultJsonString);
                                 SearchAndByClassRoot root = new Gson().fromJson(resultJsonString,SearchAndByClassRoot.class);
                                 List<Recipe> recipeList = root.getResult().getRecipeResult().getList();
                                 recommend.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -173,7 +174,7 @@ public class HomePageFragment extends Fragment {
 
                             }
                         });
-                        map.clear();
+
 
                     }
                 }
